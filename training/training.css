@@ -29,17 +29,18 @@
   background-color: #f37373;
   padding: 1rem; /* Gave comfortable breathing room without breaking layout */
   border-radius: 0; /* Kept top pointed to blend into the parent .trainings-content container */
+  
 }
 
 .trainings-detail-header h2 {
-  font-family: Arial, sans-serif !important;
   font-size: 1.4rem;
   color: #ffffff; /* Removed dark color conflict to preserve white text contrast */
   margin: 0 0 0.25rem 0; /* Tightly couples header text with the date underneath */
+  letter-spacing: 0.05em; /* Slightly increases readability for the header */
 }
 
 .training-detail-date {
-  font-family: Arial, sans-serif !important;
+  letter-spacing: 0.05em;
   font-size: 0.95rem;
   color: #ffffff;
   font-weight: 700;
