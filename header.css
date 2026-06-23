@@ -1,0 +1,199 @@
+ @font-face {
+            font-family: 'Camaufalge';
+            src: url('assets/Camaufalge.otf') format('opentype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Camaufalge', Arial, sans-serif;
+            background-color: #f9f9f9;
+            letter-spacing: 0.05em;
+
+        }
+
+        header {
+            position: relative;
+            background: url('assets/me/meee.jpg') no-repeat center center;
+            background-size: cover;
+            background-color: #000;
+            color: white;
+            padding: 1.5rem 1rem; /* UPDATED: Reduced padding for a shorter height */
+            
+            /* Center alignment modifications */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            min-height: 220px; /* UPDATED: Shrunk down from 320px */
+            letter-spacing: 0.05em;
+
+        }
+
+        /* Dark overlay */
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            background-color: rgba(243, 115, 115, 0.2); /* Custom transparent pink */
+            z-index: 0;
+        }
+
+        /* Keep content above overlay */
+        header * {
+            position: relative;
+            z-index: 1;
+        }
+
+        header img {
+            width: 140px;  /* UPDATED: Scaled down slightly to 140px for better vertical balance */
+            height: 140px; /* UPDATED: Scaled down slightly to 140px for better vertical balance */
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #f37373;
+            margin-bottom: 0.3rem; /* Space between picture and name */
+        }
+
+        header h1 {
+            margin: 0.3rem 0 0.1rem;
+            text-transform: uppercase;
+            font-size: 1.8rem; /* UPDATED: Scaled down slightly to match the smaller header size */
+        }
+
+        header p.title {
+            margin: 0;
+            font-weight: 500;
+            font-size: 1.05rem;
+        }
+
+        .contact-info {
+            font-size: 0.9rem;
+            color: white;
+            margin-top: 0.4rem;
+        }
+
+        .contact-info a {
+            color: rgb(149, 195, 212);
+            text-decoration: none;
+            margin: 0 0.3rem;
+            text-shadow: #000 0 0 2px;
+        }
+
+        .contact-info a:hover {
+            text-decoration: underline;
+        }
+
+        /* ==========================================================================
+           Navigation Bar & Upgraded Pill Active State Setup
+           ========================================================================== */
+        nav {
+            background-color: #f37373;
+            display: flex;
+            justify-content: center;
+            align-items: center; 
+            flex-wrap: wrap;
+            gap: 0.75rem;        /* Slightly increased gap to match the larger text presence */
+            padding: 0.8rem;     /* Extra breathing room inside the navigation bar track */
+            margin-top: 0.5rem;
+            letter-spacing: 0.05em;
+
+        }
+
+        /* NAV ITEM BASE */
+        nav a {
+            position: relative;
+            color: white;
+            padding: 0.6rem 1.6rem; /* Scaled up padding to perfectly match the bigger font size */
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;      /* UPDATED: Increased text size for higher visibility and punch */
+            letter-spacing: 0.3px;  
+            border-radius: 25px;    /* Slightly enhanced capsule curve border radius to match sizing scales */
+            transition: background-color 0.15s ease-in-out;
+            box-sizing: border-box;
+            letter-spacing: 0.05em;
+
+        }
+
+        nav a:hover {
+            background-color: rgb(226, 76, 76);
+            letter-spacing: 0.05em;
+
+        }
+
+        /* ACTIVE PILL STATE */
+        nav a.active {
+            background-color: WHITE;
+            color: #F37373;
+            border-radius: 25px;    
+            overflow: hidden;       
+            letter-spacing: 0.05em;
+
+        }
+
+        /* RUNNING BORDER EFFECT */
+        nav a.active::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            border-radius: 25px;    /* Matches the new curve scale perfectly */
+
+            /* Creates a moving highlight line */
+            background: linear-gradient(
+                120deg,
+                transparent 40%,
+                rgba(255, 255, 255, 0.9),
+                #f37373,
+                transparent 60%
+            );
+
+            background-size: 200% 200%;
+            animation: moveBorder 1.5s linear infinite;
+
+            /* Show only on border area */
+            padding: 2px;
+            -webkit-mask:
+                linear-gradient(#000 0 0) content-box,
+                linear-gradient(#000 0 0);
+            mask:
+                linear-gradient(#000 0 0) content-box,
+                linear-gradient(#000 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+
+            box-sizing: border-box;
+        }
+
+        /* ANIMATION */
+        @keyframes moveBorder {
+            0% {
+                background-position: 0% 50%;
+            }
+            100% {
+                background-position: 200% 50%;
+            }
+        }
+
+        /* Main viewport wrapper for loaded sub-pages */
+        #content {
+            padding: 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 600px) {
+            .aboutme-wrapper {
+                padding: 0 10px;
+            }
+            nav a {
+                font-size: 0.95rem; /* Marginally steps down on small phones to stop weird line breakage */
+                padding: 0.5rem 1.2rem;
+            }
+        }

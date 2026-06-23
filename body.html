@@ -154,19 +154,39 @@
             });
         }
 
-        // =========================
-        // NAV CLICK HANDLER (FIXED)
-        // =========================
-        document.addEventListener('click', async (e) => {
+        // ==========================================
+        // ROUTING SYSTEM (NEW: URL Hash Management)
+        // ==========================================
+        async function handleRouting() {
+            const hash = window.location.hash; // e.g., "#skills"
+            let targetLink = document.querySelector(`nav a[href="${hash}"]`);
+            
+            // If the hash matches nothing or is completely empty, look for the current active nav element or default to aboutme
+            if (!targetLink) {
+                targetLink = document.querySelector('nav a.active') || document.querySelector('nav a[href="#aboutme"]');
+            }
+
+            if (targetLink) {
+                const page = targetLink.getAttribute('data-page');
+                if (page) {
+                    await loadPage(page);
+                }
+            }
+        }
+
+        // Listen for back/forward browser buttons or mid-session URL changes
+        window.addEventListener('hashchange', handleRouting);
+
+        // ==========================================
+        // NAV CLICK HANDLER (UPDATED)
+        // ==========================================
+        document.addEventListener('click', (e) => {
             const link = e.target.closest('nav a');
             if (!link) return;
 
-            const page = link.getAttribute('data-page');
-
-            if (page) {
-                e.preventDefault();
-                await loadPage(page);
-            }
+            // REMOVED e.preventDefault() and direct loadPage() call here.
+            // Let the native browser update the URL hash naturally. 
+            // The 'hashchange' listener above handles executing the logic.
         });
 
         // =========================
@@ -200,7 +220,7 @@
                             block: 'start'
                         });
 
-                    }, 200); // adjusted margin scale slightly to balance out visual load
+                    }, 200); 
                 });
             });
         }
@@ -209,13 +229,14 @@
         // INIT
         // =========================
         async function init() {
+            // Load structural components first
             await loadHTML('header', 'header.html');
             await loadHTML('footer', 'footer.html');
 
+            // NEW: Run the hash router once layout files are fully appended 
+            await handleRouting();
+
             const loader = document.getElementById('loader');
-
-            await loadPage('aboutme.html');
-
             if (loader) loader.style.display = 'none';
         }
 
