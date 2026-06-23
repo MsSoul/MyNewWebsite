@@ -1,0 +1,385 @@
+@font-face {
+    font-family: 'Camaufalge';
+    src: url('assets/Camaufalge.ttf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Scoped layout styles to prevent leaking into index layout configuration */
+.aboutme-wrapper {
+  max-width: 800px;
+  margin: 0 auto 40px auto; 
+  padding: 0 20px;
+  color: #333;
+}
+
+/* Header Container */
+.aboutme-h1 {
+  text-align: center;
+  margin: 2.5rem 0 0 0; 
+  color: #f37373;
+}
+
+.aboutme-h1 h1 {
+  margin: 0;
+  font-weight: normal;
+  font-size: 3rem;
+}
+
+
+/* =================================
+   WHITE & PINK RUNNING LIGHT EFFECT FOR section CARDS
+   ================================= */
+
+.about-card-highlight {
+  position: relative;
+  z-index: 1;
+  transition: all 0.5s ease;
+}
+
+/* The moving white and pink light layer behind the card */
+.about-card-highlight::before {
+  content: '';
+  position: absolute;
+  /* Sizing ensures the rotation cuts perfectly across the whole wide card rectangle */
+  top: -150%;
+  left: -50%;
+  width: 200%;
+  height: 400%;
+  
+  /* Creates a running streak that transitions from White to Vivid Pink */
+  background: conic-gradient(transparent, #ffffff, #e24c4c, #ffff, transparent 50%);
+  animation: rotateLight 2.5s linear infinite;
+  
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -2;
+}
+
+/* The inner card mask to leave a sharp tracking border edge */
+.about-card-highlight::after {
+  content: '';
+  position: absolute;
+  inset: 4px; /* Thickness of the tracking line */
+  background: rgb(241, 188, 188); /* Matches your section's card background color */
+  border-radius: 5px; /* Adapts cleanly inside the 8px card radius */
+  z-index: -1;
+  transition: background-color 0.3s ease;
+}
+
+/* Hover States to trigger the track visibility and neon glow */
+.about-card-highlight:hover::before {
+  opacity: 1;
+}
+
+.about-card-highlight:hover {
+  /* Added a combined white and pink outer glow */
+  box-shadow: 0 0 40px #ffffff, 0 0 40px rgb(243, 115, 115);
+}
+
+/* Keep the inner card mask seamlessly colored during accordion hover interaction */
+.about-card-highlight:hover::after {
+  background: rgb(241, 188, 188);
+}
+
+/* Animation for the spinning card track */
+@keyframes rotateLight {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+/* =================================
+   ABOUT ME HOVER CARD CAROUSEL LAYOUT
+   ================================= */
+
+.aboutme-content section {
+  background: rgb(241, 188, 188); /* White container color keeps your layout cards clean */
+  padding: 0;
+  margin: 20px 0;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  color: #4a5568;
+  letter-spacing: 0.05em;
+}
+
+/* Justify text alignment inside About and Objective cards */
+#about .content p, 
+#objective .content p {
+  text-align: justify;
+    text-indent: 30px;
+    
+  
+}
+
+/* FIXED: Corrected selector and applied clear default properties */
+.aboutme-content section h2 {
+    text-align: center;
+  margin: 0;
+  padding: 15px 20px;
+  cursor: pointer;
+  background: #f37373;
+  color: white;
+  font-size: 1.4rem;
+  font-weight: 600;
+  border-bottom: none;
+  transition: background 0.3s ease;
+}
+
+/* CONTENT CONTAINER DEFAULT SLIDED CLOSED STATE */
+.aboutme-content section .content {
+  max-height: 0;
+  overflow: hidden;
+
+  padding: 0 20px;
+
+  opacity: 0;
+  transform: translateY(-6px);
+
+  transition: 
+    max-height 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+    padding 0.4s ease,
+    opacity 0.3s ease,
+    transform 0.3s ease;
+}
+
+/* CSS CARD INTERACTION TRIGGER HOVER TARGETING CONFIGURATION */
+.aboutme-content section:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+}
+
+.aboutme-content section:hover .content {
+  max-height: 1000px; /* safer for long content */
+
+  padding: 20px;
+
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.aboutme-content section:hover h2 {
+  background: transparent; /* Distinct active header accent color */
+  color: #f37373; /* Theme pink for active header text */
+  border-bottom: 2px solid #f37373;
+}
+
+/* Internal Inner Text Formats */
+.aboutme-content h3 {
+  margin-top: 0;
+  margin-bottom: 0.4rem;
+  color: #333;
+}
+
+.aboutme-content p {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+.aboutme-content p:last-child {
+  margin-bottom: 0;
+}
+
+.aboutme-content .indented {
+  text-indent: 30px;
+  margin: 0.2rem 0;
+}
+
+.aboutme-content .double-indented {
+  text-indent: 60px; 
+  margin: 0.1rem 0;
+}
+
+.aboutme-content ul {
+  padding-left: 1.5rem;
+  margin: 0;
+}
+
+.aboutme-content ul li {
+  margin-bottom: 0.4rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .aboutme-wrapper {
+    padding: 0 10px;
+  }
+}
+
+
+/* =================================
+   ABOUT ME - DOWNLOAD CV BUTTON STYLING
+   ================================= */
+
+.download-container {
+    margin-top: 25px;
+    display: flex;
+    justify-content: flex-end; /* This pushes the button to the right side */
+}
+/* Align icon and text perfectly side-by-side */
+.download-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px; /* Space between icon and text */
+    padding: 12px 28px;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    background-color: #f37373;
+    border: none;
+    border-radius: 8px;
+    text-decoration: none;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
+    cursor: pointer;
+}
+
+/* Size and control the color of the SVG icon */
+.download-icon {
+    width: 22px;
+    height: 22px;
+    fill: currentColor; /* Inherits the white text color automatically */
+}
+.download-btn:hover {
+    background-color: #e04c4c;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+
+/* =================================
+   ABOUT ME - Conact Info Section Styling
+   ================================= */
+.contact-content {
+  text-align: center;
+}
+
+.contact-items {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-top: 15px;
+}
+
+/* contact button style */
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 12px 18px;
+  border-radius: 12px;
+
+  background: white;
+  border: 1px solid #f3b1b1;
+
+  text-decoration: none;
+  color: #333;
+
+  transition: 0.3s ease;
+}
+
+.contact-item i {
+  color: #f37373;
+  font-size: 1.2rem;
+}
+
+.contact-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 18px rgba(0,0,0,0.12);
+  border-color: #f37373;
+}
+
+
+/* ===============================================================================================================
+   PROJECTS PAGE LINK OVERRIDES (FIXED ALIGNMENT)
+   ============================================================================================================ */
+
+/* Forces the link box to center its contents (logo + text) perfectly */
+.aboutme-content section h2 a,
+.aboutme-content section h2 a:link,
+.aboutme-content section h2 a:visited,
+.aboutme-content section h2 a:hover,
+.aboutme-content section h2 a:active {
+  color: #ffffff !important;
+  text-decoration: none !important;
+  display: flex !important;          /* Turned block into flex */
+  align-items: center !important;     /* Centers logo and text vertically */
+  justify-content: center !important; /* Centers logo and text horizontally in the box */
+  gap: 12px !important;               /* Creates clean spacing between logo and text */
+  width: 100%;
+}
+
+
+/* Styling for the tech labels inside the project cards */
+.technologies {
+  font-size: 0.9rem;
+  color: #f37373; 
+  margin-bottom: 0.8rem;
+  font-weight: bold;
+}
+
+/* Fixed size & explicit aspect ratio guarantees it stays a perfect circle */
+.project-logo {
+  width: 1.4em !important;           /* Scales exactly with your font-size */
+  height: 1.4em !important;          /* Keeps a perfect 1:1 ratio with text */
+  aspect-ratio: 1 / 1 !important; 
+  border-radius: 50% !important;  
+  object-fit: cover !important;   
+  flex-shrink: 0 !important;      
+  border: 1px solid rgba(255, 255, 255, 0.4); /* Clean white border against pink header */
+  background-color: rgba(255, 255, 255, 0.1);
+}
+/* ==========================================================================
+   FORCE WORK EXPERIENCE LAYOUT (CRITICAL OVERRIDES)
+   ========================================================================== */
+
+/* 1. Force the layout container to behave */
+.aboutme-content .job-meta-row {
+  display: block !important;
+  width: 100% !important;
+  clear: both !important;
+  margin-bottom: 12px !important;
+}
+
+/* 2. Force Company Name to be Bold and Left-aligned */
+.aboutme-content .job-company {
+  float: left !important;
+  font-weight: 900 !important; /* Maximum thickness bold */
+  color: #333333 !important;
+  padding: 0.5rem !important;
+}
+
+/* 3. Force Year to be Bold and Right-aligned */
+.aboutme-content .job-year {
+  float: right !important;
+  font-weight: 900 !important; /* Maximum thickness bold */
+  color: #f37373 !important;   /* Theme Pink */
+}
+
+/* 4. Reset layout stream for subtitles and lists */
+.aboutme-content .department-subtitle {
+  clear: both !important;
+  font-style: italic !important;
+  color: #666 !important;
+  padding-top: 4px !important;
+  text-indent: 20px !important;
+}
+
+.aboutme-content section .content ul {
+  clear: both !important;
+  list-style-type: disc !important;
+  padding-left: 20px !important;
+  color: #4a5568 !important;
+}

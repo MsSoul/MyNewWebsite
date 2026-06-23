@@ -1,0 +1,272 @@
+/* ==========================================================================
+   Container Layout
+   ========================================================================== */
+.section-activities-wrapper {
+  max-width: 800px;
+  margin: 0 auto 40px auto; 
+  padding: 0 20px;
+  color: #333;
+  letter-spacing: 0.05em;
+
+}
+
+.activities-main-h1 h1 {
+  
+  font-weight: normal;
+  font-size: 3rem;
+  color: #f37373;
+  text-align: center;
+}
+
+/* 3-Column Grid Layout Setup */
+.activities-three-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.5rem;
+  align-items: start;
+}
+
+/* ==========================================================================
+   Individual Activity Box Card (With Integrated Hover Running Light)
+   ========================================================================== */
+.individual-activity-card {
+  background: rgb(239, 210, 210);
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  width: 250px;
+  height: 350px;  
+  box-sizing: border-box; 
+  
+  /* EFFECT HOOKS */
+  position: relative;
+  z-index: 1;
+  overflow: hidden; /* Clips the massive background spinner */
+}
+
+/* Forces all card content to layer cleanly above the effect pseudo-elements */
+.individual-activity-card > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* The moving white and pink light layer behind the activity card */
+.individual-activity-card::before {
+  content: '';
+  position: absolute;
+  top: -150%;
+  left: -50%;
+  width: 200%;
+  height: 400%;
+  
+  background: conic-gradient(transparent, #ffffff, #e24c4c, #ffffff, transparent 50%);
+  animation: rotateLight 2.5s linear infinite;
+  
+  opacity: 0; /* Hidden by default */
+  transition: opacity 0.3s ease;
+  z-index: -2;
+}
+
+/* The inner card mask matching the card background to build a 4px border track edge */
+.individual-activity-card::after {
+  content: '';
+  position: absolute;
+  inset: 4px; /* Thickness of the tracking line */
+  background: rgb(239, 210, 210); /* Matches the original card background */
+  border-radius: 7px; /* Nests cleanly inside the outer 10px card radius */
+  z-index: -1;
+  transition: background-color 0.3s ease;
+}
+
+/* Trigger effect on hover */
+.individual-activity-card:hover::before {
+  opacity: 1; /* Shows the running light */
+}
+
+.individual-activity-card:hover {
+  transform: translateY(-4px);
+  /* Added the white and pink outer glow combined with your original elevation shadow */
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08), 0 0 30px #ffffff, 0 0 30px rgb(243, 115, 115);
+}
+
+/* Keep the inner card mask seamlessly matched on hover */
+.individual-activity-card:hover::after {
+  background: rgb(239, 210, 210);
+}
+
+/* ==========================================================================
+   Core Element Styles
+   ========================================================================== */
+
+/* Clean Link Styling */
+.activity-photo-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.activity-photo-link h2 {
+  font-size: 1.15rem;
+  color: #2d3748;
+  text-align: center;
+  margin-top: 1rem;
+  margin-bottom: 0.4rem;
+  line-height: 1.4;
+  transition: color 0.2s ease;
+  
+  height: 3.2rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.activity-photo-link:hover h2 {
+  color: #f37373; 
+}
+
+/* Photo Frame & Image Control */
+.single-activity-photo-frame {
+  width: 100%;
+  height: 160px; 
+  overflow: hidden;
+  border-radius: 6px;
+  border: 1px solid #edf2f7;
+  background-color: #f7fafc;
+}
+
+.activity-main-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; 
+}
+
+/* Subtitles & Descriptions */
+.activity-date-tag {
+  font-size: 0.88rem;
+  color: #f37373;
+  font-weight: 700;
+  text-align: center;
+  margin-top: 0.25rem;
+  margin-bottom: 0.8rem;
+}
+
+.activity-paragraph-text {
+  text-align: justify;
+  line-height: 1.5;
+  font-size: 0.88rem;
+  color: #4a5568;
+  margin: 0;
+
+  display: -webkit-box;
+  line-clamp: 4;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Placeholder box styling for upcoming items */
+.placeholder-style-card {
+  border: 2px dashed #cbd5e1;
+  background: #f8fafc;
+}
+
+.placeholder-style-card h2 {
+  font-size: 1.2rem;
+  color: #64748b;
+  text-align: center;
+  margin-top: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.empty-photo-slot {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #94a3b8;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+/* ==========================================================================
+   Navigation Button - Minimal & Classy Premium Style
+   ========================================================================== */
+.activity-card-button {
+  display: inline-block;
+  align-self: flex-end; 
+  text-align: center;
+  text-decoration: none !important;
+  
+  /* CLASSY DEFAULT STATE: Transparent background with a crisp border outline */
+  background-color: transparent; 
+  border: 1.5px solid #f37373;
+  color: #f37373 !important; /* Premium brand pink text */
+  
+  font-weight: 600;
+  font-size: 0.85rem;
+  letter-spacing: 0.3px; /* Slightly tracked out for a premium editorial look */
+  padding: 0.5rem 1.4rem;
+  border-radius: 20px; /* Pillow capsule shape - looks much more modern and upscale */
+  
+  transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1); /* Ultra-smooth luxury easing */
+  margin-top: auto; 
+}
+
+/* Elegant, confident lift when the overall card is hovered */
+.individual-activity-card:hover .activity-card-button {
+  background-color: #f37373 !important; /* Fills smoothly with brand pink */
+  color: #ffffff !important;            /* Crisp white text visibility */
+  box-shadow: 0 4px 12px rgba(243, 115, 115, 0.3); /* Soft, elegant color matching glow */
+}
+
+/* Extra premium micro-response if they hover directly onto the button capsule itself */
+.individual-activity-card:hover .activity-card-button:hover {
+  background-color: #e25b5b !important; /* Deepens just a tiny fraction for premium feedback */
+  border-color: #e25b5b !important;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 15px rgba(243, 115, 115, 0.4);
+}
+
+.activity-card-button:active {
+  transform: scale(0.97);
+}
+
+/* ==========================================================================
+   Animations & Responsive Breakpoints
+   ========================================================================== */
+@keyframes rotateLight {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 1024px) {
+  .activities-three-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)); 
+    gap: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .activities-three-grid {
+    grid-template-columns: 1fr; 
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .activity-image-source {
+    font-size: 0.75rem;  
+  }
+}

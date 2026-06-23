@@ -1,0 +1,281 @@
+/* ==========================================================================
+   Container Layout
+   ========================================================================== */
+.section-trainings-wrapper {
+  max-width: 800px;
+  margin: 0 auto 40px auto; 
+  padding: 0 20px;
+  color: #333;
+}
+
+.trainings-main-h1 h1 {
+  
+  font-weight: normal;
+  font-size: 3rem;
+  color: #f37373;
+  text-align: center;
+}
+
+/* 3-Column Grid Layout Setup */
+.trainings-three-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.5rem;
+  align-items: start;
+}
+
+/* ==========================================================================
+   Individual Training Box Card (With Integrated Hover Running Light)
+   ========================================================================== */
+.individual-training-card {
+  background: rgb(239, 210, 210);
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 1.5rem;
+  padding-bottom: 3.5rem; /* ADDED: Generous bottom padding to clear room for the fixed button */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  width: 250px;
+  height: 350px;  
+  box-sizing: border-box; 
+  
+  /* EFFECT HOOKS & POSITION ANCHOR */
+  position: relative;
+  z-index: 1;
+  overflow: hidden; /* Clips the massive background spinner */
+}
+
+/* Forces all card content to layer cleanly above the effect pseudo-elements */
+.individual-training-card > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* The moving white and pink light layer behind the training card */
+.individual-training-card::before {
+  content: '';
+  position: absolute;
+  top: -150%;
+  left: -50%;
+  width: 200%;
+  height: 400%;
+  
+  background: conic-gradient(transparent, #ffffff, #e24c4c, #ffffff, transparent 50%);
+  animation: rotateLight 2.5s linear infinite;
+  
+  opacity: 0; /* Hidden by default */
+  transition: opacity 0.3s ease;
+  z-index: -2;
+}
+
+/* The inner card mask matching the card background to build a 4px border track edge */
+.individual-training-card::after {
+  content: '';
+  position: absolute;
+  inset: 4px; /* Thickness of the tracking line */
+  background: rgb(239, 210, 210); 
+  border-radius: 7px; /* Nests cleanly inside the outer 10px card radius */
+  z-index: -1;
+  transition: background-color 0.3s ease;
+}
+
+/* Trigger effect on hover */
+.individual-training-card:hover::before {
+  opacity: 1; 
+}
+
+.individual-training-card:hover {
+  transform: translateY(-4px);
+  /* White and pink outer glow combined with original elevation shadow */
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08), 0 0 30px #ffffff, 0 0 30px rgb(243, 115, 115);
+}
+
+/* Keep the inner card mask seamlessly matched on hover */
+.individual-training-card:hover::after {
+  background: rgb(239, 210, 210);
+}
+
+/* ==========================================================================
+   Core Element Styles
+   ========================================================================== */
+
+/* Clean Link Styling */
+.training-photo-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.training-photo-link h2 {
+  font-size: 1.15rem;
+  color: #2d3748;
+  text-align: center;
+  margin-top: 1rem;
+  margin-bottom: 0.4rem;
+  line-height: 1.4;
+  transition: color 0.2s ease;
+  
+  height: 3.2rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.training-photo-link:hover h2 {
+  color: #f37373; 
+}
+
+/* Photo Frame & Image Control */
+.single-photo-frame {
+  width: 100%;
+  height: 160px; 
+  overflow: hidden;
+  border-radius: 6px;
+  border: 1px solid #edf2f7;
+  background-color: #f7fafc;
+}
+
+.training-main-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; 
+}
+
+/* Subtitles & Descriptions */
+.training-date-tag {
+  font-size: 0.88rem;
+  color: #f37373;
+  font-weight: 700;
+  text-align: center;
+  margin-top: 0.25rem;
+  margin-bottom: 0.8rem; 
+}
+
+.training-paragraph-text {
+  text-align: justify;
+  line-height: 1.5;
+  font-size: 0.88rem; 
+  color: #4a5568;
+  margin: 0;
+
+  display: -webkit-box;
+  line-clamp: 4;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Placeholder box styling for upcoming items */
+.placeholder-style-card {
+  border: 2px dashed #cbd5e1;
+  background: #f8fafc;
+}
+
+.placeholder-style-card h2 {
+  font-size: 1.2rem;
+  color: #64748b;
+  text-align: center;
+  margin-top: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.empty-photo-slot {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #94a3b8;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+/* ==========================================================================
+   Navigation Button - Minimal & Classy Fixed Right-Bottom Style
+   ========================================================================== */
+.training-card-button {
+  display: inline-block;
+  text-align: center;
+  text-decoration: none !important;
+  box-sizing: border-box;
+  
+  /* POSITION ENGINE: Lock perfectly to the bottom-right corner */
+  position: absolute;
+  bottom: 1.2rem;
+  right: 1.2rem;
+  z-index: 3; /* Keeps it layered firmly over inner track backgrounds */
+  
+  /* PREMIUM DEFAULT STATE: Transparent background with a crisp border outline */
+  background-color: transparent; 
+  border: 1.5px solid #f37373;
+  color: #f37373 !important; 
+  
+  font-weight: 600;
+  font-size: 0.85rem;
+  letter-spacing: 0.3px; 
+  padding: 0.45rem 1.2rem;
+  border-radius: 20px; /* Upgraded to pillow capsule shape */
+  
+  transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1); /* Luxury smooth transition */
+}
+
+/* Confident fill lift when the overall card is hovered */
+.individual-training-card:hover .training-card-button {
+  background-color: #f37373 !important; 
+  color: #ffffff !important;           
+  box-shadow: 0 4px 12px rgba(243, 115, 115, 0.3); 
+}
+
+/* Micro-response if they hover directly onto the button capsule itself */
+.individual-training-card:hover .training-card-button:hover {
+  background-color: #e25b5b !important; 
+  border-color: #e25b5b !important;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 15px rgba(243, 115, 115, 0.4);
+}
+
+.training-card-button:active {
+  transform: scale(0.97);
+}
+
+/* --- IMAGE / CERTIFICATE FRAME --- */
+.certificate-card-frame {
+  width: 100%;
+  max-width: 750px;
+  height: 200px; 
+  object-fit: cover; 
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+/* ==========================================================================
+   Animations & Responsive Breakpoints
+   ========================================================================== */
+@keyframes rotateLight {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 1024px) {
+  .trainings-three-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)); 
+    gap: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .trainings-three-grid {
+    grid-template-columns: 1fr; 
+    gap: 1.5rem;
+  }
+}

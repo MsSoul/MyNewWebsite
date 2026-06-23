@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>About Me - Pretzil Joy Vivares</title>
+  <link rel="stylesheet" href="pages/aboutme.css">
+</head>
+<body>
+
+  <div class="aboutme-wrapper">
+    <div class="aboutme-h1">
+      <h1>About Me</h1>
+    </div>
+    
+    <div class="aboutme-content">
+      <section id="about" class="about-card-highlight">
+        <h2>About Me</h2>
+        <div class="content">
+          <p class="indent">Passionate software developer and graduate of Bachelor of Science in Computer Science, with experience in both web and mobile application development. I specialize in mobile development and am committed to creating ethical, user-centered solutions that promote societal well-being. As the eldest of 10 siblings, I value responsibility, leadership, and collaboration. My goal is to continuously learn and grow while developing applications that positively impact users’ lives and contribute to a better society.</p>
+        </div>
+      </section>
+
+      <section id="objective" class="about-card-highlight">
+        <h2>Objective</h2>
+        <div class="content">
+          <p class="indent">To become a proficient software developer, creating solutions that positively impact users' lives while ensuring their safety and well-being. My goal is to develop applications that are not only useful but also ethical, contributing to the betterment of society through innovative and responsible technology.</p>
+        </div>
+      </section>
+
+      <section id="personal-profile" class="about-card-highlight">
+        <h2>Personal Profile</h2>
+        <div class="content">
+          <ul>
+            <li><strong>Age:</strong> <span id="age" data-birthdate="1994-09-10"></span></li>
+            <li><strong>Gender:</strong> Female</li>
+            <li><strong>Height:</strong> 5’4</li>
+            <li><strong>Weight:</strong> 48 kilos</li>
+            <li><strong>Religion:</strong> Roman Catholic</li>
+            <li><strong>Marital Status:</strong> Single</li>
+            <li><strong>Dialect/s Spoken:</strong> Cebuano, Tagalog, English</li>
+            <li><strong>Languages (Basic):</strong> Serbian (Intermediate interest), Japanese, Korean</li>
+            <li><strong>Language Skills:</strong> Can read Romanized Serbian, Japanese, and Korean</li>
+          </ul>
+          <div>
+          <p><br></p>
+          </div>
+        <h3>Government Clearances & Identifications</h3>
+          <ul class="clearance-list">
+            <li>Complete Government Benefits (SSS, PhilHealth, Pag-IBIG)</li>
+            <li>Tax Identification Number (TIN) Available</li>
+            <li>Valid Philippine Passport Holder</li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="education" class="about-card-highlight">
+        <h2>Educational Attainment</h2>
+        <div class="content">
+          <h3>Tertiary</h3>
+          <p class="indented"><b>Bachelor of Science in Computer Science</b></p>
+          <p class="double-indented">Holy Trinity College of General Santos City</p>
+          <p class="double-indented"><i>Fiscal Daproza Avenue</i></p>
+          <p class="double-indented"><i>General Santos City, Philippines 9500</i></p>
+
+          <h3><br>Secondary</h3>
+          <p class="indented">Engracia L. Valdomar National High School</p>
+
+          <h3><br>Elementary</h3>
+          <p class="indented">Mabuhay Elementary School</p>
+        </div>
+      </section>
+      
+      <section id="interests" class="about-card-highlight">
+        <h2>Interests</h2>
+        <div class="content">
+          <ul>
+            <li>Eating</li>
+            <li>Listening to Music</li>
+            <li>Playing Mobile Legend</li>
+            <li>Watching Anime</li>
+            <li>Traveling</li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="download-cv" class="about-card-highlight">
+          <h2>Download CV</h2>
+          <div class="content">
+            <p class="indent">If you would like to keep a copy of my profile or review my qualifications offline, you are welcome to download my CV below.</p>
+            
+            <div class="download-container">
+              <a href="assets/Pretzil_Joy_Vivares_CV.pdf" download="Pretzil_Joy_Vivares_CV.pdf" class="download-btn">
+                <svg class="download-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="currentColor">
+                  <path d="M480-320 280-520l56-58 104 104v-326h80v326l104-104 56 58-200 200ZM240-160q-33 0-56.5-23.5T160-240v-120h80v120h480v-120h80v120q0 33-23.5 56.5T720-160H240Z"/>
+                </svg>
+                DOWNLOAD MY CV
+              </a>
+            </div>
+          </div>
+        </section>
+
+        <section id="contact" class="about-card-highlight contact-highlight">
+  <h2>Contact Me</h2>
+
+  <div class="content contact-content">
+    <p class="indent">
+      If you’d like to reach me for opportunities, collaborations, or inquiries,
+      feel free to contact me below.
+    </p>
+
+    <div class="contact-items">
+
+      <a class="contact-item" href="tel:+639952934950">
+        <i class="fa-solid fa-phone"></i>
+        <span>+63 995 293 4950</span>
+      </a>
+
+      <a class="contact-item" href="mailto:pjvivares0910@gmail.com">
+        <i class="fa-solid fa-envelope"></i>
+        <span>pjvivares0910@gmail.com</span>
+      </a>
+
+    </div>
+  </div>
+</section>
+    </div>
+  </div>
+
+  <script>
+    function calculateAge(birthDateString) {
+      const today = new Date();
+      const birthDate = new Date(birthDateString);
+
+      let age = today.getFullYear() - birthDate.getFullYear();
+      const monthDiff = today.getMonth() - birthDate.getMonth();
+
+      if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+      }
+
+      return age;
+    }
+
+    function setAge() {
+      const ageEl = document.getElementById("age");
+      if (!ageEl) return;
+
+      const birthDate = ageEl.getAttribute("data-birthdate");
+      ageEl.textContent = calculateAge(birthDate);
+    }
+
+    // NEW: Click interaction handler for sections
+    function initAccordion() {
+      const sections = document.querySelectorAll(".aboutme-content section");
+      
+      sections.forEach(section => {
+        const header = section.querySelector("h2");
+        if (!header) return;
+
+        header.addEventListener("click", () => {
+          // Optional: Close other open sections first (Accordion style)
+          sections.forEach(otherSection => {
+            if (otherSection !== section) {
+              otherSection.classList.remove("active");
+            }
+          });
+
+          // Toggle the clicked section
+          section.classList.toggle("active");
+        });
+      });
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      setAge();
+      initAccordion();
+    });
+    
+    // Immediate execution fallback for dynamic injection wrappers
+    setAge();
+  </script>
+
+</body>
+</html>

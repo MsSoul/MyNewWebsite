@@ -1,0 +1,268 @@
+/* ==========================================================================
+   SKILLS PAGE STYLES (Scoped to match the uniform pink theme)
+   ========================================================================== */
+
+body.skills-page {
+  margin: 0;
+  font-family: 'Camaufalge';
+  line-height: 1.6;
+}
+
+/* Skills Main Title Section */
+.skills-main-wrapper {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 20px;
+  text-align: center;
+}
+
+.skills-main-wrapper h1 {
+  text-align: center;
+  margin: 2.5rem 0 0 0;
+  color: #f37373;
+  font-weight: normal;
+  font-size: 3rem;
+}
+
+/* Page Outer Wrapper */
+.skills-wrapper {
+  max-width: 800px;
+  margin: 0 auto 40px auto; /* Center horizontally + space below */
+  padding: 0 20px;
+}
+
+/* ==========================================================================
+   SLIDING HOVER CARD CONFIGURATIONS
+   ========================================================================== */
+
+.skills-content section {
+  background: rgb(241, 188, 188); /* White container color keeps your layout cards clean */
+  padding: 0;
+  margin: 20px 0;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  color: #4a5568;
+}
+
+/* Card Header Strip (Pink theme) */
+.skills-content section h2 {
+  margin: 0;
+  padding: 15px 20px;
+  text-align: center;
+  background: #f37373;
+  color: white;
+  font-size: 1.4rem;
+  font-weight: 600;
+  border-bottom: none;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+/* Dropdown Content Frame - Closed by default */
+.skills-content section .content {
+  max-height: 0;
+  overflow: hidden;
+  padding: 0 20px;
+  opacity: 0;
+  transform: translateY(-6px);
+  transition: 
+    max-height 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+    padding 0.4s ease,
+    opacity 0.3s ease,
+    transform 0.3s ease;
+}
+
+/* ==========================================================================
+   MOUSE HOVER INTERACTION TRIGGERS
+   ========================================================================== */
+
+.skills-content section:hover {
+  transform: translateY(-9px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+}
+
+/* Slides the card open on hover */
+.skills-content section:hover .content {
+  max-height: 2000px; /* FIXED: Increased from 1000px to fully fit Card 3's deep grid contents without clipping */
+  padding: 20px;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Darkens header tab on card focus hover */
+.skills-content section:hover h2 {
+ background: transparent; /* Distinct active header accent color */
+  color: #f37373; /* Theme pink for active header text */
+  border-bottom: 2px solid #f37373;
+}
+
+/* ==========================================================================
+   INTERNAL CARD TEXT FORMATTING
+   ========================================================================== */
+
+.skills-content h3 {
+  margin-top: 1.2rem;
+  margin-bottom: 0.4rem;
+  color: #f37373; /* Subtle pink theme subtitle accent code */
+  font-size: 1.1rem;
+}
+
+.skills-content p {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  text-align: justify;
+}
+
+.skills-content ul {
+  list-style-type: disc;
+  padding-left: 25px;
+  margin: 0 0 1rem 0;
+}
+
+.skills-content ul:last-child {
+  margin-bottom: 0;
+}
+
+.skills-content ul li {
+  margin-bottom: 0.5rem;
+  line-height: 1.6;
+}
+
+.link {
+  color: lightblue;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .skills-wrapper {
+    padding: 0 10px;
+  }
+}
+
+/* ==========================================================================
+   Category Layout Styling 
+   ==========================================================================*/
+.tech-category-section {
+  margin-top: 10px;
+  margin-bottom: 15px;
+}
+
+.tech-category-title {
+  font-size: 1.1rem;
+  margin-bottom: 12px;
+  text-align: left;
+}
+
+/* Force exactly 3 columns per grid */
+.tech-badges-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); 
+  gap: 15px; /* Sightly padded out for breathing room */
+  justify-items: center;
+  align-items: start;
+}
+
+/* Individual wrapper for image + title text below it */
+.tech-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+}
+
+/* Updated icon styling with white background and border */
+.tech-icon {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 12px; /* FIXED: Reduced from 1.5rem so images actually have physical space inside the box */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+  display: block; /* FIXED: Blocks handle absolute layouts cleanly without crushing the grid text */
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  width: 75px;  /* FIXED: Resized down from 100px so 3 icons fit comfortably within mobile/desktop widths */
+  height: 75px; 
+  box-sizing: border-box; 
+  object-fit: contain; /* FIXED: Keeps tech logo aspect ratios intact without overflowing or stretching */
+}
+
+.tech-label {
+  font-size: 0.9rem; /* FIXED: Tamed from 1rem to stop long titles (like "Android Studio") from forcing unnatural wrapping */
+  font-weight: 800;
+  display: block;
+  margin-top: 8px; /* FIXED: Standardized spacer between image elements and labels */
+}
+
+/* Hover effect: zooms the icon and highlights the border */
+.tech-item:hover .tech-icon {
+  transform: scale(1.1);
+  border-color: #a0a0a0;       /* Darkens the border slightly on hover */
+}
+
+/* =================================
+   WHITE & PINK RUNNING LIGHT EFFECT FOR section CARDS
+   ================================= */
+
+.skills-card-highlight {
+  position: relative;
+  z-index: 1;
+}
+
+/* The moving white and pink light layer behind the card */
+.skills-card-highlight::before {
+  content: '';
+  position: absolute;
+  /* Sizing ensures the rotation cuts perfectly across the whole wide card rectangle */
+  top: -150%;
+  left: -50%;
+  width: 200%;
+  height: 400%;
+  
+  /* Creates a running streak that transitions from White to Vivid Pink */
+  background: conic-gradient(transparent, #ffffff, #e24c4c, #ffff, transparent 50%);
+  animation: rotateLight 2.5s linear infinite;
+  
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -2;
+  pointer-events: none; /* FIXED: Stops hidden animation backgrounds from stealing your cursor click tracking */
+}
+
+/* The inner card mask to leave a sharp tracking border edge */
+.skills-card-highlight::after {
+  content: '';
+  position: absolute;
+  inset: 4px; /* Thickness of the tracking line */
+  background: rgb(241, 188, 188); /* Matches your section's card background color */
+  border-radius: 5px; /* Adapts cleanly inside the 8px card radius */
+  z-index: -1;
+  transition: background-color 0.3s ease;
+  pointer-events: none; /* FIXED: Ensures pseudo element masks don't crash child flex item hovers */
+}
+
+/* Hover States to trigger the track visibility and neon glow */
+.skills-card-highlight:hover::before {
+  opacity: 1;
+}
+
+.skills-card-highlight:hover {
+  /* Added a combined white and pink outer glow */
+  box-shadow: 0 0 40px #ffffff, 0 0 40px rgb(243, 115, 115);
+}
+
+/* Keep the inner card mask seamlessly colored during accordion hover interaction */
+.skills-card-highlight:hover::after {
+  background: rgb(241, 188, 188);
+}
+
+/* Animation for the spinning card track */
+@keyframes rotateLight {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

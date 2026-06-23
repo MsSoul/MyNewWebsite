@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Pretzil Joy Vivares</title>
+
+    <link rel="prefetch" href="header.html">
+    <link rel="prefetch" href="footer.html">
+    <link rel="prefetch" href="mycontact.html">
+    <link rel="prefetch" href="pages/aboutme.html">
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <link rel="stylesheet" href="body.css">
+</head>
+
+<body>
+
+    <div id="header"></div>
+
+    <main id="content">
+
+        <div class="floating-social">
+
+            <a href="https://www.linkedin.com/in/pjvivares0910"
+                target="_blank"
+                class="social-btn"
+                data-label="LinkedIn">
+                <i class="fab fa-linkedin-in"></i>
+            </a>
+
+            <a href="https://github.com/MsSoul"
+                target="_blank"
+                class="social-btn"
+                data-label="GitHub">
+                <i class="fab fa-github"></i>
+            </a>
+
+            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=pjvivares0910@gmail.com"
+                target="_blank"
+                class="social-btn"
+                data-label="Email">
+                <i class="fas fa-envelope"></i>
+            </a>
+
+        </div>
+
+    </main>
+
+    <div id="footer"></div>
+
+    <div id="loader">
+        <div class="loader-content">
+            <div class="icon-container">
+                <span class="icon">❤️</span>
+                <span class="icon">⭐</span>
+                <span class="icon">🤏</span>
+                <span class="icon">💖</span>
+                <span class="icon">✨</span>
+            </div>
+            <p>Loading...</p>
+        </div>
+    </div>
+
+   <script>
+        // =========================
+        // LOAD HTML COMPONENTS
+        // =========================
+        async function loadHTML(id, file) {
+            const res = await fetch(file);
+            const html = await res.text();
+            document.getElementById(id).innerHTML = html;
+        }
+
+        // Helper promise function to handle transition delays cleanly
+        const sleep = ms => new Promise(r => setTimeout(r, ms));
+
+        // =========================
+        // LOAD PAGE CONTENT (SPA)
+        // =========================
+        async function loadPage(page) {
+            const content = document.getElementById('content');
+
+            // 1. Trigger the out-transition if it's an interior page switch
+            if (content.innerHTML.trim() !== "") {
+                content.classList.add('fade-out');
+                await sleep(180); // Wait for fade out animation to finish cleanly
+            }
+
+            const res = await fetch('pages/' + page);
+            const htmlText = await res.text();
+
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(htmlText, 'text/html');
+
+            const bodyContent = doc.body ? doc.body.innerHTML : htmlText;
+
+            // Load styles dynamically
+            const stylePromises = [];
+
+            doc.querySelectorAll('link[rel="stylesheet"]').forEach(sheet => {
+                const href = sheet.getAttribute('href');
+
+                if (!document.querySelector(`link[href="${href}"]`)) {
+                    const link = document.createElement('link');
+                    link.rel = 'stylesheet';
+                    link.href = href;
+
+                    stylePromises.push(new Promise(resolve => {
+                        link.onload = resolve;
+                    }));
+
+                    document.head.appendChild(link);
+                }
+            });
+
+            await Promise.all(stylePromises);
+
+            // Hide visibility while swapping raw content string to avoid layout shifting flashes
+            content.style.visibility = 'hidden';
+            content.innerHTML = bodyContent;
+            content.style.visibility = 'visible';
+
+            // Execute scripts inside loaded page
+            doc.querySelectorAll('script').forEach(oldScript => {
+                const newScript = document.createElement('script');
+
+                if (oldScript.src) {
+                    newScript.src = oldScript.src;
+                } else {
+                    newScript.textContent = oldScript.textContent;
+                }
+
+                document.body.appendChild(newScript);
+                newScript.remove();
+            });
+
+            // ACTIVE NAV STATE
+            document.querySelectorAll('nav a').forEach(link => {
+                link.classList.toggle(
+                    'active',
+                    link.getAttribute('data-page') === page
+                );
+            });
+
+            // IMPORTANT: enable dropdown scroll after load
+            enableDropdownScroll();
+
+            // 2. Clear out class to run incoming crisp step transition smoothly
+            requestAnimationFrame(() => {
+                content.classList.remove('fade-out');
+            });
+        }
+
+        // =========================
+        // NAV CLICK HANDLER (FIXED)
+        // =========================
+        document.addEventListener('click', async (e) => {
+            const link = e.target.closest('nav a');
+            if (!link) return;
+
+            const page = link.getAttribute('data-page');
+
+            if (page) {
+                e.preventDefault();
+                await loadPage(page);
+            }
+        });
+
+        // =========================
+        // DROPDOWN SECTION SCROLL
+        // =========================
+        function enableDropdownScroll() {
+            document.querySelectorAll('.dropdown-menu a').forEach(link => {
+                link.addEventListener('click', async function (e) {
+                    e.preventDefault();
+
+                    const id = this.getAttribute('data-scroll');
+
+                    // reload page if needed
+                    await loadPage('aboutme.html');
+
+                    setTimeout(() => {
+                        const target = document.getElementById(id);
+
+                        if (!target) return;
+
+                        // CLOSE all sections first
+                        document.querySelectorAll('.aboutme-content section')
+                            .forEach(sec => sec.classList.remove('active'));
+
+                        // OPEN selected section
+                        target.classList.add('active');
+
+                        // scroll into view
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+
+                    }, 200); // adjusted margin scale slightly to balance out visual load
+                });
+            });
+        }
+
+        // =========================
+        // INIT
+        // =========================
+        async function init() {
+            await loadHTML('header', 'header.html');
+            await loadHTML('footer', 'footer.html');
+
+            const loader = document.getElementById('loader');
+
+            await loadPage('aboutme.html');
+
+            if (loader) loader.style.display = 'none';
+        }
+
+        init();
+    </script>
+
+</body>
+
+</html>
