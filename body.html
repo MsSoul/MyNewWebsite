@@ -65,6 +65,23 @@
     </div>
 
    <script>
+// Inside your body.html script section:
+
+function loadMainHeader() {
+    // 1. Fetch and load the header file into its wrapper
+    loadPageContent('header-wrapper-id', 'header.html'); 
+    
+    // 2. Wait a tiny fraction of a millisecond for the browser to parse the script, then run it!
+    setTimeout(() => {
+        if (typeof window.startMyTitleRotator === 'function') {
+            window.startMyTitleRotator();
+        } else {
+            console.error("Rotator function is not defined yet.");
+        }
+    }, 50); 
+}
+
+
         // =========================
         // LOAD HTML COMPONENTS
         // =========================

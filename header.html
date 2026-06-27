@@ -20,7 +20,14 @@
     <header>
         <img src="assets/me/me.jpg" alt="Pretzil Joy Vivares">
         <h1>Pretzil Joy Vivares</h1>
-        <p class="title">Software Developer</p>
+        <div class="title-container">
+    <div class="title-slider" id="title-slider">
+        <div class="title-item">Software Developer</div>
+        <div class="title-item">Junior Android Application Developer</div>
+        <div class="title-item">Junior Full-Stack Developer</div>
+        <div class="title-item">Junior QA Tester</div>
+    </div>
+</div>
         <div id="contact-info"></div>
     </header>
 
@@ -89,6 +96,34 @@
 
         // Also listen for back/forward browser buttons or mid-session URL changes
         window.addEventListener('hashchange', handleRouting);
+
+// Global interval tracker to prevent multiple duplicate loops
+window.rotatorInterval = null;
+
+// The universal function you will call from body.html
+window.startMyTitleRotator = function() {
+    const slider = document.getElementById('title-slider');
+    const items = document.querySelectorAll('.title-item');
+    
+    // Stop if elements aren't injected into the page yet
+    if (!slider || items.length === 0) {
+        console.warn("Slider elements not found yet.");
+        return;
+    }
+
+    // Clear any existing intervals to prevent it from spinning out of control
+    if (window.rotatorInterval) clearInterval(window.rotatorInterval);
+
+    let currentIndex = 0;
+
+    window.rotatorInterval = setInterval(() => {
+        currentIndex = (currentIndex + 1) % items.length;
+        
+        // Moves the slider up cleanly by 30px intervals matching your CSS height
+        const shiftValue = currentIndex * 30; 
+        slider.style.transform = `translateY(-${shiftValue}px)`;
+    }, 1000); // 1 second auto-rotation
+};
     </script>
 </body>
 </html>

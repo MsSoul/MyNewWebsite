@@ -14,7 +14,7 @@ body {
 }
 
 #content {
-    padding: 2rem;
+    padding: 4rem;
 }
 
 nav a.active {
@@ -257,3 +257,4 @@ nav a.active {
     visibility: visible;
     transform: translateY(-50%) translateX(0); /* Smooth slide-in */
 }
+

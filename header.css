@@ -197,3 +197,60 @@
                 padding: 0.5rem 1.2rem;
             }
         }
+
+/* Container that masks out the titles that aren't active */
+/* Container that masks out the titles that aren't active */
+.title-container {
+    height: 30px;          /* Explicit pixel height prevents custom font metric glitches */
+    overflow: hidden;
+    position: relative;
+    display: block;        /* Ensures it fills correctly in a flexbox layout */
+    width: 100%;           /* Allows content to read from full width center */
+    margin: 0 auto;
+}
+
+/* The element that moves upward */
+.title-slider {
+    display: flex;
+    flex-direction: column;
+    align-items: center;   /* Keeps all incoming text perfectly centered */
+    
+    /* MODIFIED: Bypasses JavaScript completely with an infinite keyframe loop */
+    animation: rotateTitles 5s cubic-bezier(0.25, 1, 0.5, 1) infinite;
+}
+
+/* Individual titles styling */
+.title-item {
+    height: 30px;          /* Must match the container exactly */
+    line-height: 30px;     /* Vertically centers text inside the 30px slot */
+    white-space: nowrap;
+    font-weight: 500;
+    font-size: 1.05rem;    /* Matches your original template's size */
+    color: white; 
+    text-transform: none;  /* Keeps your exact casing style */
+}
+
+/* ANIMATION TIMING BREAKDOWN (4 Items Total, ~1s holding time + transit per item):
+  0% to 18%   : Holds on Item 1 (0px)
+  22% to 40%  : Holds on Item 2 (-30px)
+  44% to 62%  : Holds on Item 3 (-60px)
+  66% to 84%  : Holds on Item 4 (-90px)
+  88% to 100% : Snaps seamlessly back to Item 1
+*/
+@keyframes rotateTitles {
+    0%, 18% {
+        transform: translateY(0px);
+    }
+    22%, 40% {
+        transform: translateY(-30px);
+    }
+    44%, 62% {
+        transform: translateY(-60px);
+    }
+    66%, 84% {
+        transform: translateY(-90px);
+    }
+    88%, 100% {
+        transform: translateY(0px);
+    }
+}
