@@ -6,15 +6,25 @@
 }
 
 html {
+    height: 100%;
     scroll-behavior: smooth;
 }
 
 body {
     margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 #content {
+    flex: 1;
     padding: 4rem;
+}
+
+#footer {
+    width: 100%;
+    margin-top: auto;
 }
 
 nav a.active {
@@ -147,7 +157,6 @@ nav a.active {
     flex-direction: column !important;
     gap: 16px !important;
 
-    /* Clears any bounding height limits so your footer reads naturally */
     height: auto !important;
     width: auto !important;
     z-index: 9999 !important;
