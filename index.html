@@ -168,6 +168,29 @@
                 transform: rotate(360deg);
             }
         }
+        #knowBtn {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity .5s ease, transform .5s ease;
+}
+
+#knowBtn.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+#typing-title::after,
+#typing-text::after {
+    content: "|";
+    animation: blink .8s infinite;
+    color: #f37373;
+}
+
+@keyframes blink {
+    50% {
+        opacity: 0;
+    }
+}
+
     </style>
 </head>
 
@@ -177,14 +200,12 @@
         <div class="container">
 
             <div class="welcome">
-                <h1>Hi, I'm Pretzil</h1>
+                <h1 id="typing-title"></h1>
 
-                <p>
-                    Welcome to my personal website! Here, you can explore my background, 
-                    skills, academic journey, and recent activities.
+                <p id="typing-text">
                 </p>
 
-                <button onclick="location.href='body.html'">
+                <button id="knowBtn" onclick="location.href='body.html'">
                 CLICK TO KNOW ME BETTER
                 </button>
             </div>
@@ -199,5 +220,57 @@
     <div id="footer"></div>
 
 </body>
+<script>
+const title = "Hi, I'm Pretzil!";
+const message =
+"Welcome to my personal website! Here, you can explore my background, skills, academic journey, and recent activities.";
+
+const titleElement = document.getElementById("typing-title");
+const messageElement = document.getElementById("typing-text");
+const button = document.getElementById("knowBtn");
+
+let i = 0;
+let j = 0;
+
+function typeTitle() {
+    if (i < title.length) {
+        titleElement.textContent += title.charAt(i);
+        i++;
+        setTimeout(typeTitle, 90);
+    } else {
+        setTimeout(typeMessage, 300);
+    }
+}
+
+function typeMessage() {
+    if (j < message.length) {
+        messageElement.textContent += message.charAt(j);
+        j++;
+        setTimeout(typeMessage, 30);
+    } else {
+        // Show the button only once
+        button.classList.add("show");
+
+        // Wait before restarting
+        setTimeout(resetTyping, 3000);
+    }
+}
+
+function resetTyping() {
+    // Clear the text
+    titleElement.textContent = "";
+    messageElement.textContent = "";
+
+    // Reset counters
+    i = 0;
+    j = 0;
+
+    // Start typing again
+    typeTitle();
+}
+
+window.onload = typeTitle;
+</script>
+
 
 </html>

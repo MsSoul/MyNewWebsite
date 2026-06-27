@@ -4,7 +4,11 @@
             font-weight: normal;
             font-style: normal;
         }
-
+.code-icon {
+    color: WHITE;
+    font-weight: bold;
+    margin-right: 6px;
+}
         body {
             margin: 0;
             font-family: 'Camaufalge', Arial, sans-serif;
