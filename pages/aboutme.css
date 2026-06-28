@@ -383,3 +383,12 @@ html {
   padding-left: 20px !important;
   color: #4a5568 !important;
 }
+/* Styling for the project subtitle/meta text */
+.aboutme-content section .project-meta {
+  font-size: 0.95rem;       /* Makes the font smaller */
+  font-weight: normal;      /* Removes the bold effect */
+  color: #4a5568;           /* Gives it a clean, lighter color (adjust as needed) */
+  margin-top: 4px;          /* Adds space between the title and this text */
+  margin-bottom: 4px;
+  text-align: center;       /* Centers it, matching your centered headers */
+}
