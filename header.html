@@ -13,29 +13,49 @@
     <link rel="prefetch" href="pages/projects.html">
     <link rel="prefetch" href="pages/activities.html">
     <link rel="stylesheet" href="header.css">
+    
+    <style>
+       
+    </style>
 </head>
-
-<body>
-
-    <header>
+<header>
         <img src="assets/me/me.jpg" alt="Pretzil Joy Vivares">
         <h1>Pretzil Joy Vivares</h1>
+        
+        <div class="meta-info-row">
+            <div class="meta-item">
+                <div class="icon-badge">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                </div>
+                <div class="meta-text">
+                    Wawa, Taguig City, Manila, Philippines <span class="country-code">PH</span>
+                </div>
+            </div>
+            
+            <div class="meta-item">
+                <div class="icon-badge">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                </div>
+                <div class="meta-text" id="live-datetime"></div>
+            </div>
+        </div>
+
         <div class="title-container">
-    <div class="title-slider" id="title-slider">
-        <div class="title-item">
-    <span class="code-icon">&lt;/&gt;</span>  Software Developer  <span class="code-icon">&lt;/&gt;</span>
-</div>
-        <div class="title-item">
-    <span class="code-icon">&lt;/&gt;</span>  Junior Android Application Developer  <span class="code-icon">&lt;/&gt;</span>
-</div>
-        <div class="title-item">
-    <span class="code-icon">&lt;/&gt;</span>  Junior Full-Stack Developer  <span class="code-icon">&lt;/&gt;</span>
-</div>
-        <div class="title-item">
-    <span class="code-icon">&lt;/&gt;</span>  Junior QA Tester  <span class="code-icon">&lt;/&gt;</span>
-</div>
-    </div>
-</div>
+            <div class="title-slider" id="title-slider">
+                <div class="title-item">
+                    <span class="code-icon">&lt;/&gt;</span>  Software Developer  <span class="code-icon">&lt;/&gt;</span>
+                </div>
+                <div class="title-item">
+                    <span class="code-icon">&lt;/&gt;</span>  Junior Android Application Developer  <span class="code-icon">&lt;/&gt;</span>
+                </div>
+                <div class="title-item">
+                    <span class="code-icon">&lt;/&gt;</span>  Junior Full-Stack Developer  <span class="code-icon">&lt;/&gt;</span>
+                </div>
+                <div class="title-item">
+                    <span class="code-icon">&lt;/&gt;</span>  Junior QA Tester  <span class="code-icon">&lt;/&gt;</span>
+                </div>
+            </div>
+        </div>
         <div id="contact-info"></div>
     </header>
 
@@ -51,6 +71,28 @@
     <main id="content"></main>
 
     <script>
+        function updateDateTime() {
+    const el = document.getElementById("live-datetime");
+    if (!el) return;
+
+    const now = new Date();
+
+    const date = now.toLocaleDateString("en-US");
+
+    const time = now.toLocaleTimeString("en-US", {
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+        hour12: true
+    });
+
+    el.textContent = `${date} @ ${time} // Asia/Manila`;
+}
+        
+        // Execute immediately to bypass any loading text
+        updateDateTime();
+        setInterval(updateDateTime, 1000); 
+
         function loadPageContent(targetId, url) {
             fetch(url)
                 .then(response => {
@@ -75,63 +117,49 @@
                 });
         }
 
-        // Load contact info permanently inside header slot right away
         loadPageContent('contact-info', 'mycontact.html');
 
-        // NEW function: Checks the URL hash and loads the correct page
         function handleRouting() {
-            const hash = window.location.hash; // e.g., "#skills"
+            const hash = window.location.hash; 
             let targetLink = document.querySelector(`nav a[href="${hash}"]`);
             
-            // Default to aboutme if hash is empty or doesn't match any link
             if (!targetLink) {
                 targetLink = document.querySelector('nav a[href="#aboutme"]');
             }
 
             if (targetLink) {
-                // Update active states
                 document.querySelectorAll('nav a').forEach(nav => nav.classList.remove('active'));
                 targetLink.classList.add('active');
 
-                // Pull data page routing pathway
                 const page = targetLink.getAttribute('data-page');
                 loadPageContent('content', page);
             }
         }
 
-        // Run routing on initial startup
         handleRouting();
-
-        // Also listen for back/forward browser buttons or mid-session URL changes
         window.addEventListener('hashchange', handleRouting);
 
-// Global interval tracker to prevent multiple duplicate loops
-window.rotatorInterval = null;
+        window.rotatorInterval = null;
 
-// The universal function you will call from body.html
-window.startMyTitleRotator = function() {
-    const slider = document.getElementById('title-slider');
-    const items = document.querySelectorAll('.title-item');
-    
-    // Stop if elements aren't injected into the page yet
-    if (!slider || items.length === 0) {
-        console.warn("Slider elements not found yet.");
-        return;
-    }
+        window.startMyTitleRotator = function() {
+            const slider = document.getElementById('title-slider');
+            const items = document.querySelectorAll('.title-item');
+            
+            if (!slider || items.length === 0) {
+                console.warn("Slider elements not found yet.");
+                return;
+            }
 
-    // Clear any existing intervals to prevent it from spinning out of control
-    if (window.rotatorInterval) clearInterval(window.rotatorInterval);
+            if (window.rotatorInterval) clearInterval(window.rotatorInterval);
 
-    let currentIndex = 0;
+            let currentIndex = 0;
 
-    window.rotatorInterval = setInterval(() => {
-        currentIndex = (currentIndex + 1) % items.length;
-        
-        // Moves the slider up cleanly by 30px intervals matching your CSS height
-        const shiftValue = currentIndex * 30; 
-        slider.style.transform = `translateY(-${shiftValue}px)`;
-    }, 1000); // 1 second auto-rotation
-};
+            window.rotatorInterval = setInterval(() => {
+                currentIndex = (currentIndex + 1) % items.length;
+                const shiftValue = currentIndex * 30; 
+                slider.style.transform = `translateY(-${shiftValue}px)`;
+            }, 1000); 
+        };
     </script>
 </body>
 </html>

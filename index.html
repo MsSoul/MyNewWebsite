@@ -6,11 +6,13 @@
     <title>Welcome to My Personal Website</title>
     <link rel="prefetch" href="body.html">
     <link rel="prefetch" href="header.html">
-<link rel="prefetch" href="footer.html">
-<link rel="prefetch" href="mycontact.html">
-<link rel="prefetch" href="pages/aboutme.html">
+    <link rel="prefetch" href="footer.html">
+    <link rel="prefetch" href="mycontact.html">
+    <link rel="prefetch" href="pages/aboutme.html">
 
-<script defer src="/_vercel/insights/script.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script defer src="/_vercel/insights/script.js"></script>
 
     <style>
         @font-face {
@@ -33,7 +35,6 @@
             background-color: rgba(0, 0, 0, 0.65);
             width: 100%;
             min-height: 100vh;
-
             display: flex;
             justify-content: center;
             align-items: center;
@@ -46,10 +47,8 @@
             max-width: 1200px;
             width: 90%;
             padding: 40px;
-
             background-color: rgba(255, 255, 255, 0.03);
             border-radius: 15px;
-
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
         }
 
@@ -71,38 +70,6 @@
         }
 
         .welcome button {
-            padding: 16px 35px;
-            font-size: 20px;
-            font-family: 'Camaufalge', Arial, sans-serif;
-            background-color: #f37373;
-            color: white;
-            border: none;
-            border-radius: 10px;
-
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-
-        .welcome button:hover {
-            background-color: rgb(236, 171, 171);
-        }
-
-        .image-side {
-            flex: 1.3;
-
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .image-side img {
-            width: 100%;
-            max-width: 420px;
-            height: auto;
-            border: none;
-        }
-
-        .welcome button {
             position: relative;
             padding: 16px 35px;
             font-size: 20px;
@@ -112,12 +79,12 @@
             border: none;
             border-radius: 10px;
             cursor: pointer;
-            overflow: hidden; /* Keeps the spinning light inside the button shape */
+            overflow: hidden;
             z-index: 1;
             transition: color 0.3s, box-shadow 0.3s;
         }
 
-        /* The moving pink light layer (UPGRADED) */
+        /* The moving pink light layer */
         .welcome button::before {
             content: '';
             position: absolute;
@@ -125,9 +92,8 @@
             left: -50%;
             width: 200%;
             height: 200%;
-            /* Uses ultra-bright neon hot pinks and a wider gradient arc (60% instead of 30%) */
             background: conic-gradient(transparent, #ff1493, #ff69b4, transparent 60%);
-            animation: rotateLight 1.5s linear infinite; /* Slightly faster for energy */
+            animation: rotateLight 1.5s linear infinite;
             opacity: 0; 
             transition: opacity 0.3s;
             z-index: -2;
@@ -137,7 +103,7 @@
         .welcome button::after {
             content: '';
             position: absolute;
-            inset: 4px; /* Increased to 4px to make the light track thicker and more visible */
+            inset: 4px;
             background-color: #f37373;
             border-radius: 7px; 
             z-index: -1;
@@ -150,47 +116,91 @@
         }
 
         .welcome button:hover {
-            /* Adds a powerful neon outer glow on hover */
             box-shadow: 0 0 20px #ff1493, 0 0 40px rgba(255, 20, 147, 0.4);
         }
 
         .welcome button:hover::after {
-            /* Kept slightly darker on hover so the bright neon border stands out clearly */
             background-color: #e56363; 
         }
 
         /* Animation for the spinning border light */
         @keyframes rotateLight {
-            from {
-                transform: rotate(0deg);
-            }
-            to {
-                transform: rotate(360deg);
-            }
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
         }
+
         #knowBtn {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity .5s ease, transform .5s ease;
-}
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity .5s ease, transform .5s ease;
+        }
 
-#knowBtn.show {
-    opacity: 1;
-    transform: translateY(0);
-}
-#typing-title::after,
-#typing-text::after {
-    content: "|";
-    animation: blink .8s infinite;
-    color: #f37373;
-}
+        #knowBtn.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
 
-@keyframes blink {
-    50% {
-        opacity: 0;
-    }
-}
+        /* Social Icons Wrapper */
+        .social-icons {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity .5s ease, transform .5s ease;
+        }
 
+        .social-icons.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .social-icons a, .email-container {
+            color: white;
+            font-size: 32px;
+            transition: color 0.3s, transform 0.3s;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .social-icons a:hover, .email-container:hover {
+            color: #f37373;
+            transform: scale(1.15);
+        }
+
+        /* Email Tooltip Styling */
+        .email-container {
+            position: relative;
+            display: inline-block;
+        }
+
+
+        /* Typing Effect blinkers */
+        #typing-title::after,
+        #typing-text::after {
+            content: "|";
+            animation: blink .8s infinite;
+            color: #f37373;
+        }
+
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+
+        .image-side {
+            flex: 1.3;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .image-side img {
+            width: 100%;
+            max-width: 420px;
+            height: auto;
+            border: none;
+        }
     </style>
 </head>
 
@@ -201,13 +211,23 @@
 
             <div class="welcome">
                 <h1 id="typing-title"></h1>
-
-                <p id="typing-text">
-                </p>
+                <p id="typing-text"></p>
 
                 <button id="knowBtn" onclick="location.href='body.html'">
-                CLICK TO KNOW ME BETTER
+                    CLICK TO KNOW ME BETTER
                 </button>
+
+                <div id="socialLinks" class="social-icons">
+                    <a href="https://www.linkedin.com/in/pjvivares0910" target="_blank" title="LinkedIn">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                    <a href="https://github.com/MsSoul" target="_blank" title="GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <div class="email-container" id="emailWrapper" onclick="copyEmail()" title="Click to copy email">
+                        <i class="fas fa-envelope" id="emailIcon"></i>
+                    </div>
+                </div>
             </div>
 
             <div class="image-side">
@@ -220,14 +240,15 @@
     <div id="footer"></div>
 
 </body>
+
 <script>
 const title = "Hi, I'm Pretzil!";
-const message =
-"Welcome to my personal website! Here, you can explore my background, skills, academic journey, and recent activities.";
+const message = "Welcome to my personal website! Here, you can explore my background, projects, academic journey, and recent activities.";
 
 const titleElement = document.getElementById("typing-title");
 const messageElement = document.getElementById("typing-text");
 const button = document.getElementById("knowBtn");
+const socialLinks = document.getElementById("socialLinks");
 
 let i = 0;
 let j = 0;
@@ -248,29 +269,49 @@ function typeMessage() {
         j++;
         setTimeout(typeMessage, 30);
     } else {
-        // Show the button only once
+        // Show the button and social links together
         button.classList.add("show");
+        socialLinks.classList.add("show");
 
         // Wait before restarting
-        setTimeout(resetTyping, 3000);
+        setTimeout(resetTyping, 4000); // Bumped to 4s so users have time to see/click links
     }
 }
 
 function resetTyping() {
-    // Clear the text
     titleElement.textContent = "";
     messageElement.textContent = "";
-
-    // Reset counters
     i = 0;
     j = 0;
-
-    // Start typing again
     typeTitle();
+}
+
+// Function to copy email address
+function copyEmail() {
+    const emailText = "pjvivares0910@gmail.com"; 
+    const wrapper = document.getElementById("emailWrapper");
+    const icon = document.getElementById("emailIcon");
+
+    navigator.clipboard.writeText(emailText).then(() => {
+        // Change the hover title text
+        wrapper.setAttribute("title", "Copied!");
+        
+        // Transform email envelope icon to a green checkmark
+        icon.className = "fas fa-check";
+        icon.style.color = "#73f373"; 
+
+        // Reset title and icon back to normal after 2 seconds
+        setTimeout(() => {
+            wrapper.setAttribute("title", "Click to copy email");
+            icon.className = "fas fa-envelope";
+            icon.style.color = "";
+        }, 2000);
+    }).catch(err => {
+        console.error('Failed to copy text: ', err);
+    });
 }
 
 window.onload = typeTitle;
 </script>
-
 
 </html>

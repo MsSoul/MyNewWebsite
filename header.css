@@ -258,3 +258,41 @@
         transform: translateY(0px);
     }
 }
+ /* Row layout container instead of a grid */
+        .meta-info-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 24px;
+            margin: 5px auto;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #ffffff; /* Forces all text elements to white */
+        }
+
+        /* Clean badges without borders or background shapes */
+        .icon-badge {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff; /* Forces the SVG icon line color to white */
+            flex-shrink: 0;
+        }
+
+        .meta-text {
+            font-size: 14px;
+            line-height: 1.4;
+            text-align: left;
+        }
+
+        .meta-text .country-code {
+            font-size: 10px;
+            vertical-align: super;
+            margin-left: 2px;
+            font-weight: bold;
+        }
